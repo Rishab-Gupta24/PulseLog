@@ -19,7 +19,7 @@ Execution Order: Database & Date Utils -> Weight & Workout Logging + Tests -> Me
 - [x] **Task 1.3: Optional User Targets (`targetsService.ts`)**
   - Build `src/services/targetsService.ts` to read, set, or clear individual targets (`NULL` allowed for any target).
   - Build `app/modals/targets.tsx` with a **"Skip / Clear Targets"** option so users are never forced to enter goals before logging.
-- [ ] **Task 1.4: Weight Logging, 7-Day Moving Average & Tests (`weightService.ts`)**
+- [x] **Task 1.4: Weight Logging, 7-Day Moving Average & Tests (`weightService.ts`)**
   - Build `src/services/weightService.ts` to log, edit, and delete daily scale weights by local `logged_date` (`YYYY-MM-DD`), query the latest weight strictly **on or before** a given `YYYY-MM-DD` date (`logged_date <= target_date`), and compute a pure TypeScript **7-day moving average**.
   - Render the dual-line weight chart (raw daily entries + 7-day moving average) on `app/(tabs)/trends.tsx`.
   - **Write & Run Test (`src/__tests__/weightMovingAvg.test.ts`):** Verify 7-day moving average math across sparse and consecutive dates, and verify that prior-or-same-day weight lookup never returns a future weight log.

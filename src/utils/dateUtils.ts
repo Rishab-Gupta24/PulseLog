@@ -50,6 +50,33 @@ export function isValidLocalDateString(value: string): boolean {
   return parseLocalDateString(value) !== null;
 }
 
+/**
+ * Calendar-day arithmetic on `YYYY-MM-DD` strings. Works in UTC internally so a 23- or
+ * 25-hour DST day still counts as exactly one day.
+ */
+export function addDaysToLocalDate(value: LocalDateString, days: number): LocalDateString {
+  const shifted = new Date(toUtcDayMs(value) + days * MS_PER_DAY);
+  const year = shifted.getUTCFullYear();
+  const month = String(shifted.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(shifted.getUTCDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+/** Whole calendar days from `from` to `to` (negative if `to` is earlier). */
+export function diffLocalDays(from: LocalDateString, to: LocalDateString): number {
+  return Math.round((toUtcDayMs(to) - toUtcDayMs(from)) / MS_PER_DAY);
+}
+
+const MS_PER_DAY = 24 * 60 * 60 * 1000;
+
+function toUtcDayMs(value: LocalDateString): number {
+  const date = parseLocalDateString(value);
+  if (!date) {
+    throw new Error(`Invalid local date string: "${value}" (expected YYYY-MM-DD)`);
+  }
+  return Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
 /** Local day bounds used when querying HealthKit / Health Connect for a day's steps. */
 export function getLocalDayBounds(value: LocalDateString): LocalDayBounds {
   const start = parseLocalDateString(value);

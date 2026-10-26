@@ -2,6 +2,8 @@
  * @jest-environment ./jest/timezoneEnvironment.js
  */
 import {
+  addDaysToLocalDate,
+  diffLocalDays,
   getLocalDayBounds,
   isValidLocalDateString,
   parseLocalDateString,
@@ -81,6 +83,32 @@ describe('parseLocalDateString / isValidLocalDateString', () => {
       expect(isValidLocalDateString(value)).toBe(false);
     },
   );
+});
+
+describe('addDaysToLocalDate / diffLocalDays', () => {
+  it.each([
+    ['2026-10-26', 1, '2026-10-27'],
+    ['2026-10-26', -6, '2026-10-20'],
+    ['2026-12-31', 1, '2027-01-01'],
+    ['2028-02-28', 1, '2028-02-29'],
+    ['2026-03-01', -1, '2026-02-28'],
+  ])('%s %+d days = %s', (start, days, expected) => {
+    expect(addDaysToLocalDate(start, days)).toBe(expected);
+    expect(diffLocalDays(start, expected)).toBe(days);
+  });
+
+  it('counts DST transition days as exactly one day (America/New_York)', () => {
+    inTimezone('America/New_York', () => {
+      expect(addDaysToLocalDate('2026-03-08', 1)).toBe('2026-03-09');
+      expect(addDaysToLocalDate('2026-11-01', 1)).toBe('2026-11-02');
+      expect(diffLocalDays('2026-03-01', '2026-03-15')).toBe(14);
+    });
+  });
+
+  it('throws on an invalid date string', () => {
+    expect(() => addDaysToLocalDate('2026-02-30', 1)).toThrow('Invalid local date string');
+    expect(() => diffLocalDays('2026-10-26', 'nope')).toThrow('Invalid local date string');
+  });
 });
 
 describe('getLocalDayBounds', () => {

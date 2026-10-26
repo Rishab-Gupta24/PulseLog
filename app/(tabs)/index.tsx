@@ -1,17 +1,16 @@
 import { router } from 'expo-router';
 import { StyleSheet, Text, View, useColorScheme } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/ui/Button';
 import { getThemeColors, hairlineWidth, spacing, tabularNums } from '@/constants/theme';
 import { toLocalDateString } from '@/utils/dateUtils';
 
-// Placeholder screen until the Today tab is built in Task 1.7.
-export default function PlaceholderScreen() {
+// Placeholder until the Today dashboard is built in Task 1.7.
+export default function TodayScreen() {
   const theme = getThemeColors(useColorScheme());
 
   return (
-    <SafeAreaView style={[styles.screen, { backgroundColor: theme.bg.canvas }]}>
+    <View style={[styles.screen, { backgroundColor: theme.bg.canvas }]}>
       <View style={[styles.card, { backgroundColor: theme.bg.card, borderColor: theme.border.hairline }]}>
         <Text style={[styles.title, { color: theme.text.primary }]}>PulseLog</Text>
         <Text style={[styles.subtitle, tabularNums, { color: theme.text.secondary }]}>
@@ -19,7 +18,7 @@ export default function PlaceholderScreen() {
         </Text>
         <Button label="Targets (optional)" variant="secondary" onPress={() => router.push('/modals/targets')} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
