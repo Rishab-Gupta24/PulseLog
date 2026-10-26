@@ -1,16 +1,19 @@
 import { Stack } from 'expo-router';
+import { SQLiteProvider } from 'expo-sqlite';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'react-native';
 
 import { getThemeColors } from '@/constants/theme';
+import { DATABASE_NAME, initializeDatabase } from '@/db/client';
 
-// Placeholder root layout for Task 1.1. Task 1.2 adds SQLite init; later tasks add the (tabs) group.
+// Screens render only after initializeDatabase (PRAGMAs + migrations) resolves.
+// Later tasks add optional-target loading here and the (tabs) group.
 export default function RootLayout() {
   const scheme = useColorScheme();
   const theme = getThemeColors(scheme);
 
   return (
-    <>
+    <SQLiteProvider databaseName={DATABASE_NAME} onInit={initializeDatabase}>
       <StatusBar style={scheme === 'light' ? 'dark' : 'light'} />
       <Stack
         screenOptions={{
@@ -18,6 +21,6 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: theme.bg.canvas },
         }}
       />
-    </>
+    </SQLiteProvider>
   );
 }
