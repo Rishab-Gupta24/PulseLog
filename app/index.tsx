@@ -1,6 +1,8 @@
+import { router } from 'expo-router';
 import { StyleSheet, Text, View, useColorScheme } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { Button } from '@/components/ui/Button';
 import { getThemeColors, hairlineWidth, spacing, tabularNums } from '@/constants/theme';
 import { toLocalDateString } from '@/utils/dateUtils';
 
@@ -15,6 +17,7 @@ export default function PlaceholderScreen() {
         <Text style={[styles.subtitle, tabularNums, { color: theme.text.secondary }]}>
           Today: {toLocalDateString()}
         </Text>
+        <Button label="Targets (optional)" variant="secondary" onPress={() => router.push('/modals/targets')} />
       </View>
     </SafeAreaView>
   );

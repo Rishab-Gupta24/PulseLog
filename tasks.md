@@ -16,7 +16,7 @@ Execution Order: Database & Date Utils -> Weight & Workout Logging + Tests -> Me
   - Create `src/db/client.ts` enforcing `PRAGMA journal_mode = WAL;` and `PRAGMA foreign_keys = ON;`.
   - Create `src/db/schema.ts` implementing all 6 tables (`user_targets` with nullable columns, `workouts` with `workout_date`/`intensity_label`/`met_value`/`body_weight_kg_used`/`estimated_calories_burned`, `workout_sets` with optional `rpe`, `meal_logs` with `base_*` and `portion_multiplier`, `weight_logs`, `step_logs`).
   - Create `src/db/profiler.ts` with a `profileQuery()` helper using `performance.now()`.
-- [ ] **Task 1.3: Optional User Targets (`targetsService.ts`)**
+- [x] **Task 1.3: Optional User Targets (`targetsService.ts`)**
   - Build `src/services/targetsService.ts` to read, set, or clear individual targets (`NULL` allowed for any target).
   - Build `app/modals/targets.tsx` with a **"Skip / Clear Targets"** option so users are never forced to enter goals before logging.
 - [ ] **Task 1.4: Weight Logging, 7-Day Moving Average & Tests (`weightService.ts`)**

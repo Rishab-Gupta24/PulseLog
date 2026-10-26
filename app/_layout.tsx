@@ -20,7 +20,18 @@ export default function RootLayout() {
           headerShown: false,
           contentStyle: { backgroundColor: theme.bg.canvas },
         }}
-      />
+      >
+        <Stack.Screen
+          name="modals/targets"
+          options={{
+            presentation: 'modal',
+            headerShown: true,
+            title: 'Targets',
+            headerStyle: { backgroundColor: theme.bg.card },
+            headerTintColor: theme.text.primary,
+          }}
+        />
+      </Stack>
     </SQLiteProvider>
   );
 }
